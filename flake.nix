@@ -6,23 +6,37 @@
   };
 
   outputs = inputs: with inputs;
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import nixpkgs {
-          inherit system;
-          overlays = [cargo2nix.overlays.default];
-        };
+  flake-utils.lib.eachDefaultSystem (system:
+  let
+    pkgs = import nixpkgs {
+      inherit system;
+      overlays = [cargo2nix.overlays.default];
+    };
 
-        rustPkgs = pkgs.rustBuilder.makePackageSet {
-          rustVersion = "1.61.0";
-          packageFun = import ./Cargo.nix;
-        };
+    rustPkgs = pkgs.rustBuilder.makePackageSet {
+      rustVersion = "1.61.0";
+      packageFun = import ./Cargo.nix;
+    };
 
-      in rec {
-        packages = {
-          mlang = (rustPkgs.workspace.mlang {}).bin;
-          default = packages.mlang;
-        };
-      }
-    );
+    mlang = (rustPkgs.workspace.mlang {}).bin;
+
+    workspaceshell = rustPkgs.workspaceShell {
+      packages = [
+        pkgs.rustfmt
+        pkgs.rust-analyzer
+        pkgs.clippy
+      ];
+    };
+
+  in rec {
+    packages = {
+      mlang = mlang;
+      default = packages.mlang;
+    };
+
+    devShells = {
+      default = workspaceshell;
+    };
+  }
+  );
 }

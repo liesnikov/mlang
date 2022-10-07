@@ -45,5 +45,4 @@ in
     registry = "unknown";
     src = fetchCrateLocal workspaceSrc;
   });
-  
 }
