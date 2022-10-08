@@ -22,6 +22,8 @@
 
     workspaceshell = rustPkgs.workspaceShell {
       packages = [
+        pkgs.rustc
+        pkgs.cargo
         pkgs.rustfmt
         pkgs.rust-analyzer
         pkgs.clippy

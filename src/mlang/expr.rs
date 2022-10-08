@@ -4,7 +4,6 @@ pub trait MVal<T> {
     fn val(&self) -> T;
 }
 
-
 // booleans
 
 pub struct MBool {
@@ -16,6 +15,7 @@ impl MVal<bool> for MBool {
         self.mbool
     }
 }
+
 
 // integers
 
