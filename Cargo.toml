@@ -5,10 +5,6 @@ edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
-[lib]
-name = "mlang"           # The name of the target.
-path = "src/mlang.rs"    # The source file of the target.
-
 [[bin]]
 name = "mlangc"
 path = "src/main.rs"
