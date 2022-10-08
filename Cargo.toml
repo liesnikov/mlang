@@ -14,3 +14,4 @@ name = "mlangc"
 path = "src/main.rs"
 
 [dependencies]
+serde = "1.0"
