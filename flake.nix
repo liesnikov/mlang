@@ -18,7 +18,7 @@
       packageFun = import ./Cargo.nix;
     };
 
-    mlang = (rustPkgs.workspace.mlang {}).bin;
+    mlang = (rustPkgs.workspace.mlang {});
 
     workspaceshell = rustPkgs.workspaceShell {
       packages = [
@@ -34,6 +34,12 @@
     packages = {
       mlang = mlang;
       default = packages.mlang;
+    };
+
+    apps = rec {
+      mlang = { type = "app"; program = "${packages.default}/bin/mlangc"; };
+
+      default = mlang;
     };
 
     devShells = {
